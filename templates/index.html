@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Issue Management System{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h1>Welcome to Issue Management System</h1>
+    <p class="lead">Efficiently track and manage issues with our comprehensive solution</p>
+</div>
+
+<div class="feature-highlight">
+    <div class="feature-icon">
+        <i class="fas fa-envelope"></i>
+    </div>
+    <div class="feature-content">
+        <h3>Email Notifications</h3>
+        <p>Get notified via email when your ticket is created and resolved. Simply provide your email address when submitting an issue.</p>
+    </div>
+</div>
+
+<div class="features-grid">
+    <div class="feature-card">
+        <i class="fas fa-plus-circle"></i>
+        <h3>Submit Issues</h3>
+        <p>Quickly submit new issues with detailed descriptions and priority levels.</p>
+        <a href="{{ url_for('submit') }}" class="btn btn-primary">Submit Issue</a>
+    </div>
+
+    <div class="feature-card">
+        <i class="fas fa-list"></i>
+        <h3>Track Issues</h3>
+        <p>Monitor the status of all submitted issues in real-time.</p>
+        <a href="{{ url_for('list_requests') }}" class="btn btn-primary">View Issues</a>
+    </div>
+    
+    <div class="feature-card">
+        <i class="fas fa-bell"></i>
+        <h3>Stay Informed</h3>
+        <p>Receive immediate email notifications when your issues are created and resolved.</p>
+        <a href="{{ url_for('submit') }}" class="btn btn-primary">Try it Now</a>
+    </div>
+</div>
+
+<div class="recent-issues">
+    <h2>Recent Issues</h2>
+    <div class="issues-list">
+        {% if requests_db %}
+            {% for request in requests_db[:5] %}
+            <div class="issue-card">
+                <div class="issue-header">
+                    <span class="issue-id">#{{ request.id }}</span>
+                    <span class="issue-priority {{ request.priority }}">{{ request.priority }}</span>
+                    <span class="issue-status {{ request.status }}">{{ request.status }}</span>
+                </div>
+                <div class="issue-content">
+                    <h4>{{ request.description[:100] }}{% if request.description|length > 100 %}...{% endif %}</h4>
+                    <div class="issue-meta">
+                        <span><i class="fas fa-tag"></i> {{ request.category }}</span>
+                        <span><i class="fas fa-clock"></i> {{ request.date }}</span>
+                        {% if request.contact_email %}
+                        <span class="notification-enabled" title="Email notifications enabled">
+                            <i class="fas fa-bell"></i>
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+                <a href="{{ url_for('view_request', request_id=request.id) }}" class="btn btn-primary">View Details</a>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-issues">
+                <i class="fas fa-check-circle"></i>
+                <p>No issues submitted yet</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+.feature-highlight {
+    background-color: #e3f2fd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+}
+
+.feature-icon {
+    font-size: 36px;
+    color: #0d6efd;
+    margin-right: 20px;
+    background-color: white;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.feature-content h3 {
+    margin-top: 0;
+    color: #0d6efd;
+}
+
+.notification-enabled {
+    background-color: #28a745;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5px;
+}
+
+.issue-status {
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-left: 5px;
+}
+
+.issue-status.open {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.issue-status.resolved {
+    background-color: #28a745;
+    color: white;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Issue Management System{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-bug"></i>
+            <span>Issue Tracker</span>
+        </div>
+        <div class="nav-links">
+            <a href="{{ url_for('index') }}" class="nav-link"><i class="fas fa-home"></i> Home</a>
+            <a href="{{ url_for('submit') }}" class="nav-link"><i class="fas fa-plus"></i> Submit Issue</a>
+            <a href="{{ url_for('list_requests') }}" class="nav-link"><i class="fas fa-list"></i> View Issues</a>
+        </div>
+        <div class="notification-feature">
+            <div class="notification-badge">
+                <i class="fas fa-envelope"></i>
+                <span class="feature-label">Email Notifications</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 Issue Management System</p>
+    </footer>
+
+    <style>
+    .notification-feature {
+        margin-left: auto;
+        margin-right: 15px;
+    }
+    
+    .notification-badge {
+        display: flex;
+        align-items: center;
+        background-color: #28a745;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 0.9rem;
+    }
+    
+    .notification-badge i {
+        margin-right: 8px;
+    }
+    
+    @media (max-width: 768px) {
+        .feature-label {
+            display: none;
+        }
+        
+        .notification-badge {
+            padding: 5px;
+        }
+    }
+    </style>
+</body>
+</html> 

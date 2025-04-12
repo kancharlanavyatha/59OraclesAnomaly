@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+
+{% block title %}Ticket #{{ request.id }} - Issue Management System{% endblock %}
+
+{% block content %}
+<div class="request-details-container">
+    <h1>Ticket #{{ request.id }} - {{ request.category }}</h1>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            {% if category == 'success' %}
+            <i class="fas fa-check-circle"></i>
+            {% else %}
+            <i class="fas fa-exclamation-circle"></i>
+            {% endif %}
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <div class="ticket-status-bar">
+        <div class="ticket-status {% if request.status == 'resolved' %}resolved{% else %}open{% endif %}">
+            <i class="fas {% if request.status == 'resolved' %}fa-check-circle{% else %}fa-clock{% endif %}"></i>
+            Status: {{ request.status|capitalize }}
+        </div>
+        
+        {% if request.contact_email %}
+        <div class="email-notification-status">
+            <i class="fas fa-envelope"></i>
+            Email notifications enabled for: {{ request.contact_email }}
+        </div>
+        {% else %}
+        <div class="email-notification-status disabled">
+            <i class="fas fa-envelope-slash"></i>
+            No email notifications (no email provided)
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="ticket-meta">
+        <div class="meta-item">
+            <strong>Submitted:</strong> {{ request.date }}
+        </div>
+        <div class="meta-item">
+            <strong>Priority:</strong> {{ request.priority|capitalize }}
+        </div>
+        <div class="meta-item">
+            <strong>Category:</strong> {{ request.category }}
+        </div>
+        {% if request.status == 'resolved' and request.resolved_date %}
+        <div class="meta-item">
+            <strong>Resolved:</strong> {{ request.resolved_date }}
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="ticket-description">
+        <h3>Description</h3>
+        <div class="description-content">
+            {{ request.description }}
+        </div>
+    </div>
+    
+    {% if request.status == 'resolved' and request.resolution_notes %}
+    <div class="resolution-notes">
+        <h3>Resolution Notes</h3>
+        <div class="notes-content">
+            {{ request.resolution_notes }}
+        </div>
+    </div>
+    {% endif %}
+    
+    {% if request.status == 'open' %}
+    <div class="resolve-form">
+        <h3>Resolve This Ticket</h3>
+        
+        {% if request.contact_email %}
+        <div class="notification-info">
+            <i class="fas fa-bell"></i>
+            <p>An email notification will be sent to <strong>{{ request.contact_email }}</strong> when this ticket is resolved.</p>
+        </div>
+        {% endif %}
+        
+        <form method="POST" action="{{ url_for('resolve_request', request_id=request.id) }}">
+            <div class="form-group">
+                <label for="resolution_notes" class="form-label">Resolution Notes</label>
+                <textarea id="resolution_notes" name="resolution_notes" class="form-control" rows="4" required></textarea>
+                <small class="form-text text-muted">
+                    Describe how the issue was resolved. 
+                    {% if request.contact_email %}
+                    This information will be included in the email sent to the user.
+                    {% endif %}
+                </small>
+            </div>
+            
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-check-circle"></i>
+                Mark as Resolved
+                {% if request.contact_email %}
+                <i class="fas fa-envelope ml-2" title="Email notification will be sent"></i>
+                {% endif %}
+            </button>
+        </form>
+    </div>
+    {% endif %}
+    
+    <div class="ticket-actions">
+        <a href="{{ url_for('list_requests') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i>
+            Back to Requests
+        </a>
+    </div>
+</div>
+
+<style>
+.ticket-status-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    flex-wrap: wrap;
+}
+
+.ticket-status {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    padding: 5px 15px;
+    border-radius: 15px;
+}
+
+.ticket-status.open {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.ticket-status.resolved {
+    background-color: #28a745;
+    color: white;
+}
+
+.ticket-status i {
+    margin-right: 8px;
+}
+
+.email-notification-status {
+    display: flex;
+    align-items: center;
+    background-color: #e3f2fd;
+    padding: 5px 15px;
+    border-radius: 15px;
+    color: #0d6efd;
+}
+
+.email-notification-status.disabled {
+    background-color: #e9ecef;
+    color: #6c757d;
+}
+
+.email-notification-status i {
+    margin-right: 8px;
+}
+
+.notification-info {
+    background-color: #e3f2fd;
+    border-left: 4px solid #0d6efd;
+    padding: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.notification-info i {
+    font-size: 24px;
+    color: #0d6efd;
+    margin-right: 15px;
+}
+
+.notification-info p {
+    margin: 0;
+}
+
+.ml-2 {
+    margin-left: 8px;
+}
+
+.resolution-notes {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    border-left: 4px solid #28a745;
+}
+</style>
+{% endblock %}
