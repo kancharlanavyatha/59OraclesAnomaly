@@ -1,0 +1,127 @@
+[
+  {
+    "id": 1,
+    "description": "spam",
+    "priority": "low",
+    "category": "General Inquiry",
+    "contact_email": "",
+    "status": "open",
+    "date": "2025-04-11 18:02:14"
+  },
+  {
+    "id": 2,
+    "description": "spam issue",
+    "priority": "medium",
+    "category": "Technical Support",
+    "contact_email": "mayo@gmail.com",
+    "status": "open",
+    "date": "2025-04-11 18:29:45"
+  },
+  {
+    "id": 3,
+    "description": "spam",
+    "priority": "high",
+    "category": "General Inquiry",
+    "contact_email": "",
+    "status": "open",
+    "date": "2025-04-11 18:31:22"
+  },
+  {
+    "id": 4,
+    "description": "billing",
+    "priority": "medium",
+    "category": "Billing",
+    "contact_email": "",
+    "status": "open",
+    "date": "2025-04-11 19:35:11"
+  },
+  {
+    "id": 5,
+    "description": "billing issue",
+    "priority": "medium",
+    "category": "Technical Support",
+    "contact_email": "mayo@gmail.com",
+    "status": "open",
+    "date": "2025-04-11 19:35:46"
+  },
+  {
+    "id": 6,
+    "description": "billing",
+    "priority": "low",
+    "category": "Billing",
+    "contact_email": "mayo@gmail.com",
+    "status": "resolved",
+    "date": "2025-04-11 20:32:56",
+    "resolved_date": "2025-04-11 20:33:26",
+    "resolution_notes": "yes"
+  },
+  {
+    "id": 7,
+    "description": "billing",
+    "priority": "medium",
+    "category": "Billing",
+    "contact_email": "xlice.me@gmail.com",
+    "status": "open",
+    "date": "2025-04-11 20:38:19"
+  },
+  {
+    "id": 8,
+    "description": "billing",
+    "priority": "medium",
+    "category": "Billing",
+    "contact_email": "xlice.me@gmail.com",
+    "status": "open",
+    "date": "2025-04-11 20:39:53"
+  },
+  {
+    "id": 9,
+    "description": "billing",
+    "priority": "medium",
+    "category": "Billing",
+    "contact_email": "xlice.me@gmail.com",
+    "status": "resolved",
+    "date": "2025-04-11 20:39:55",
+    "resolved_date": "2025-04-11 20:40:43",
+    "resolution_notes": "yes"
+  },
+  {
+    "id": 10,
+    "description": "bills",
+    "priority": "medium",
+    "category": "Billing",
+    "contact_email": "",
+    "status": "open",
+    "date": "2025-04-11 20:44:28"
+  },
+  {
+    "id": 11,
+    "description": "laptop is having technical issues",
+    "priority": "high",
+    "category": "Technical Support",
+    "contact_email": "mayooga.23ise@cambridge.edu.in",
+    "status": "resolved",
+    "date": "2025-04-11 20:45:01",
+    "resolved_date": "2025-04-11 20:45:55",
+    "resolution_notes": "restart the system"
+  },
+  {
+    "id": 12,
+    "description": "I have spent a significant amount of money on this product and expect it to function properly. I kindly request that a representative from your company contact me as soon as possible to schedule a repair or replacement",
+    "priority": "high",
+    "category": "General Inquiry",
+    "contact_email": "mayooga.23ise@cambridge.edu.in",
+    "status": "resolved",
+    "date": "2025-04-11 22:19:07",
+    "resolved_date": "2025-04-11 22:20:15",
+    "resolution_notes": "we'll get back to you. "
+  },
+  {
+    "id": 13,
+    "description": "billing issue",
+    "priority": "high",
+    "category": "Technical Support",
+    "contact_email": "mmm@gmail.com",
+    "status": "open",
+    "date": "2025-04-12 04:05:17"
+  }
+]
